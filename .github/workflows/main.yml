@@ -1,0 +1,55 @@
+name: native image linux release
+
+on:
+  workflow_dispatch: 
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        # 暂时跳过 windows-latest
+        os: [ ubuntu-latest, macos-latest]
+    name: build - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: GitHub Action for GraalVM JDK 11
+      uses: graalvm/setup-graalvm@v1
+      with:
+        version: 22.0.0.2
+        java-version: 11
+    - name: Cache local Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Build with Maven
+      run: mvn clean -U -P native --file pom.xml --no-transfer-progress package
+    # 压缩文件
+    - name: Archive zip
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        path: 'target/nd-native-demo-*'
+        filename: native-demo-${{ matrix.os }}.zip
+        exclusions: 'target/nd-native-demo-*.txt'
+    # 上传构建产物
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: native-demo-${{ matrix.os }}.zip
+        path: native-demo-${{ matrix.os }}.zip
+    # GitHub 上创建 release
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: native-demo-${{ matrix.os }}.zip
+        prerelease: true
+        token: ${{ secrets.GH_TOKEN }}
