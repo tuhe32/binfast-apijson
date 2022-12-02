@@ -194,7 +194,7 @@
                             <!--移除对jmx的支持-->
                             <removeJmxSupport>true</removeJmxSupport>
                             <!--可执行文件的名字-->
-                            <imageName>apijson-${project.artifactId}-${project.version}</imageName>
+                            <imageName>${project.artifactId}-${project.version}</imageName>
                             <!--<buildArgs>
                                 -H:+ReportExceptionStackTraces -H:+PrintAnalysisCallTree \
                                 &#45;&#45;trace-object-instantiation=org.apache.commons.logging.impl.SLF4JLocationAwareLog \
