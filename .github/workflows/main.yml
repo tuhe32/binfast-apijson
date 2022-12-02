@@ -36,9 +36,9 @@ jobs:
       uses: thedoctor0/zip-release@master
       with:
         type: 'zip'
-        path: 'target/nd-native-demo-*'
+        path: 'target/apijson-native-demo-*'
         filename: native-demo-${{ matrix.os }}.zip
-        exclusions: 'target/nd-native-demo-*.txt'
+        exclusions: 'target/apijson-native-demo-*.txt'
     # 上传构建产物
     - name: Upload artifact
       uses: actions/upload-artifact@v3.0.0
