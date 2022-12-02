@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -19,7 +19,7 @@
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.6</spring-boot.version>
+        <spring-boot.version>2.6.7</spring-boot.version>
         <repackage.classifier/>
         <spring-native.version>0.12.1</spring-native.version>
     </properties>
@@ -188,6 +188,20 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <!--移除对yaml的支持-->
+                            <removeYamlSupport>true</removeYamlSupport>
+                            <!--移除对jmx的支持-->
+                            <removeJmxSupport>true</removeJmxSupport>
+                            <!--可执行文件的名字-->
+                            <imageName>apijson-${project.artifactId}-${project.version}</imageName>
+                            <!--<buildArgs>
+                                -H:+ReportExceptionStackTraces -H:+PrintAnalysisCallTree \
+                                &#45;&#45;trace-object-instantiation=org.apache.commons.logging.impl.SLF4JLocationAwareLog \
+                                &#45;&#45;initialize-at-build-time=org.apache.commons.logging.impl.SLF4JLocationAwareLog \
+                                &#45;&#45;link-at-build-time &#45;&#45;verbose
+                            </buildArgs>-->
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
