@@ -18,6 +18,5 @@ import javax.servlet.http.HttpServletResponse;
         HttpServletResponse.class}
 )
 )
-@Configuration(proxyBeanMethods=false)
 public class DemoNativeConfiguration implements NativeConfiguration {
 }
