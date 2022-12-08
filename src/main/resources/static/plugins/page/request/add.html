@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.7.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">DEBUG</label>
+        <div class="layui-input-block">
+            <input type="radio" name="debug" value="0" title="关" checked="">
+            <input type="radio" name="debug" value="1" title="开">
+<!--            <input type="text" name="debug" lay-verify="required"  value="0" class="layui-input">-->
+            <tip>是否为 DEBUG 调试数据，只允许在开发环境使用</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">method</label>
+        <div class="layui-input-block">
+            <input type="text" name="method" placeholder="请输入method" value="POST" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">tag</label>
+        <div class="layui-input-block">
+            <input type="text" name="tag" placeholder="请输入标签" value="" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">结构</label>
+        <div class="layui-input-block">
+            <textarea name="structure" class="layui-textarea" lay-verify="required" placeholder="请输入结构信息"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">详细说明</label>
+        <div class="layui-input-block">
+            <textarea name="detail" class="layui-textarea" placeholder="请输入详细说明"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.7.6/layui.js" charset="utf-8"></script>
+<script src="../../js/utils.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+
+        var saveBody = {
+            "Request": {}
+        }
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            deleteEmptyProperty(data.field)
+            saveBody["Request"] = data.field
+            // console.log('[saveBody]', saveBody)
+            fetch('/post', saveBody, function (resp) {
+                var index = layer.alert(resp.msg, {
+                    title: '保存成功', icon: 1
+                }, function () {
+                    // 关闭弹出层
+                    parent.reloadParam = "reload"
+                    layer.close(index);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                });
+            })
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.7.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">DEBUG</label>
+        <div class="layui-input-block">
+            <input type="radio" name="debug" value="0" title="关" checked="">
+            <input type="radio" name="debug" value="1" title="开">
+            <tip>是否为 DEBUG 调试数据，只允许在开发环境使用</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">schema</label>
+        <div class="layui-input-block">
+            <input type="text" name="schema" placeholder="请输入schema" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">表名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入表名" value="" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">表别名</label>
+        <div class="layui-input-block">
+            <input type="text" name="alias" placeholder="请输入表别名" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">get角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="get" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许get角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">head角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="head" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许head角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">gets角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="gets" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许gets角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">heads角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="heads" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许heads角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">post角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="post" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许post角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">put角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="put" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许put角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">delete角色</label>
+        <div class="layui-input-block">
+            <input type="text" name="delete" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许delete角色列表">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">详细说明</label>
+        <div class="layui-input-block">
+            <textarea name="detail" class="layui-textarea" placeholder="请输入详细说明"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.7.6/layui.js" charset="utf-8"></script>
+<script src="../../js/utils.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+
+        var saveBody = {
+            "Access": {}
+        }
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            deleteEmptyProperty(data.field)
+            saveBody["Access"] = data.field
+            // console.log('[saveBody]', saveBody)
+            fetch('/post', saveBody, function (resp) {
+                var index = layer.alert(resp.msg, {
+                    title: '保存成功', icon: 1
+                }, function () {
+                    // 关闭弹出层
+                    parent.reloadParam = "reload"
+                    layer.close(index);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                });
+            })
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

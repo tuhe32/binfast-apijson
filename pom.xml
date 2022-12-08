@@ -25,6 +25,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
+            <version>1.2.40.Beetl.RELEASE</version>
+        </dependency>
         <!-- JDK 11+ 需要，否则启动报错 NoClassDefFoundError: javax/activation/UnsupportedDataTypeException -->
         <dependency>
             <groupId>javax.activation</groupId>
