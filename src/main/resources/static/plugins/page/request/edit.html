@@ -27,27 +27,39 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label required">version</label>
+        <div class="layui-input-block">
+            <input type="number" name="version" placeholder="请输入version" value="1" lay-verify="number" class="layui-input">
+            <tip>版本管理，GET,HEAD可用任意结构访问任意开放内容，不需要这个字段。
+                其它的操作因为写入了结构和内容，所以都需要，按照不同的version选择对应的structure。</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label required">method</label>
         <div class="layui-input-block">
             <input type="text" name="method" placeholder="请输入method" value="POST" lay-verify="required" class="layui-input">
+            <tip>只限于GET,HEAD外的操作方法。</tip>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">tag</label>
         <div class="layui-input-block">
             <input type="text" name="tag" placeholder="请输入标签" value="" lay-verify="required" class="layui-input">
+            <tip>给这个请求打个标签</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">结构</label>
         <div class="layui-input-block">
             <textarea name="structure" class="layui-textarea" lay-verify="required" placeholder="请输入结构信息"></textarea>
+            <tip>请求参数校验逻辑</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">详细说明</label>
         <div class="layui-input-block">
             <textarea name="detail" class="layui-textarea" placeholder="请输入详细说明"></textarea>
+            <tip>对校验逻辑的详细说明</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">

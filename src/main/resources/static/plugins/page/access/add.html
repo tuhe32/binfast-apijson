@@ -28,60 +28,70 @@
         <label class="layui-form-label">schema</label>
         <div class="layui-input-block">
             <input type="text" name="schema" placeholder="请输入schema" value="" class="layui-input">
+            <tip>数据库名/模式</tip>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">表名</label>
         <div class="layui-input-block">
             <input type="text" name="name" placeholder="请输入表名" value="" lay-verify="required" class="layui-input">
+            <tip>实际表名，例如 apijson_user</tip>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">表别名</label>
         <div class="layui-input-block">
             <input type="text" name="alias" placeholder="请输入表别名" value="" class="layui-input">
+            <tip>外部调用的表别名，例如 User，前端传参示例 { "User":{} }</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">get角色</label>
         <div class="layui-input-block">
             <input type="text" name="get" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许get角色列表">
+            <tip>允许 get 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">head角色</label>
         <div class="layui-input-block">
             <input type="text" name="head" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许head角色列表">
+            <tip>允许 head 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">gets角色</label>
         <div class="layui-input-block">
             <input type="text" name="gets" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许gets角色列表">
+            <tip>允许 gets 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">heads角色</label>
         <div class="layui-input-block">
             <input type="text" name="heads" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许heads角色列表">
+            <tip>允许 heads 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">post角色</label>
         <div class="layui-input-block">
             <input type="text" name="post" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许post角色列表">
+            <tip>允许 post 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">put角色</label>
         <div class="layui-input-block">
             <input type="text" name="put" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许put角色列表">
+            <tip>允许 put 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">delete角色</label>
         <div class="layui-input-block">
             <input type="text" name="delete" class="layui-input" value="[]" lay-verify="required" placeholder="请输入允许delete角色列表">
+            <tip>允许 delete 的角色列表，例如 ["LOGIN", "CONTACT", "CIRCLE", "OWNER"]</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
