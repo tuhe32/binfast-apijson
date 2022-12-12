@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.7.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入姓名" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="0" title="男" checked="">
+            <input type="radio" name="sex" value="1" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">年龄</label>
+        <div class="layui-input-block">
+            <input type="number" name="age" placeholder="请输入年龄" value="" lay-verify="number" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">生日</label>
+        <div class="layui-input-block">
+            <input type="text" name="birthday" id="date" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">身份证号</label>
+        <div class="layui-input-block">
+            <input type="text" name="id_card" class="layui-input" value="" lay-verify="required" placeholder="请输入身份证号">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">家庭地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" class="layui-input" value="" placeholder="请输入家庭地址">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label ">就读学校</label>
+        <div class="layui-input-block">
+            <input type="text" name="school" class="layui-input" value="" placeholder="请输入就读学校">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">学历</label>
+        <div class="layui-input-block">
+            <input type="text" name="education" class="layui-input" value="" placeholder="请输入学历">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">专业</label>
+        <div class="layui-input-block">
+            <input type="text" name="major" class="layui-input" value="" placeholder="请输入专业">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" class="layui-input" value="" lay-verify="required" placeholder="请输入手机号">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否就业</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_work" value="0" title="否" checked="">
+            <input type="radio" name="is_work" value="1" title="是">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.7.6/layui.js" charset="utf-8"></script>
+<script src="../../js/utils.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            laydate = layui.laydate,
+            layer = layui.layer;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+
+        var saveBody = {
+            "Student": {}
+        }
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            deleteEmptyProperty(data.field)
+            saveBody["Student"] = data.field
+            // console.log('[saveBody]', saveBody)
+            $.ajax({
+                url: '/post',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                data: JSON.stringify(saveBody),
+                success:function(resp){
+                    if(resp.code !== 200){
+                        layer.alert(resp.msg, { title: '保存失败', icon: 2 })
+                    }else{
+                        var index = layer.alert(resp.msg, {
+                            title: '保存成功', icon: 1
+                        }, function () {
+                            // 关闭弹出层
+                            parent.reloadParam = "reload"
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                        });
+                    }
+                },
+                error:function(resp){
+                    layer.alert(resp.msg, { title: '保存失败', icon: 2 })
+                }
+            })
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

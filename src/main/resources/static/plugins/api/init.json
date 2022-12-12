@@ -72,6 +72,12 @@
           "target": "_self"
         },
         {
+          "title": "学生Student管理",
+          "href": "plugins/page/student.html",
+          "icon": "fa fa-navicon",
+          "target": "_self"
+        },
+        {
           "title": "表单示例",
           "href": "",
           "icon": "fa fa-calendar",
