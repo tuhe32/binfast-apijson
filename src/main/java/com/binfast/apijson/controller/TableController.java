@@ -17,6 +17,12 @@ public class TableController {
         return view;
     }
 
+    @RequestMapping("/showLogin")
+    public ModelAndView login() {
+        ModelAndView view = new ModelAndView("login.html");
+        return view;
+    }
+
 //    @RequestMapping("/access")
 //    public ModelAndView access() {
 //        ModelAndView view = new ModelAndView("admin.html");

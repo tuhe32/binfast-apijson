@@ -22,6 +22,8 @@ import apijson.orm.AbstractSQLConfig;
 import apijson.orm.Join;
 import apijson.orm.Join.On;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.binfast.apijson.model.Privacy;
+import com.binfast.apijson.model.User;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,8 +59,8 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		//		TABLE_KEY_MAP.put(Access.class.getSimpleName(), "access");
 
 		// 表名映射，隐藏真实表名，对安全要求很高的表可以这么做
-		//		TABLE_KEY_MAP.put(User.class.getSimpleName(), "apijson_user");
-		//		TABLE_KEY_MAP.put(Privacy.class.getSimpleName(), "apijson_privacy");
+		TABLE_KEY_MAP.put(User.class.getSimpleName(), "apijson_user");
+		TABLE_KEY_MAP.put(Privacy.class.getSimpleName(), "apijson_privacy");
 
 		// 主键名映射
 		SIMPLE_CALLBACK = new SimpleCallback<Long>() {

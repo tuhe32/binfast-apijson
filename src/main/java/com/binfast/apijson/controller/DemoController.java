@@ -119,7 +119,7 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
 
     @Override
     public Parser<Long> newParser(HttpSession session, RequestMethod method) {
-        return super.newParser(session, method).setNeedVerify(false).setNeedVerifyLogin(false); //TODO 这里关闭校验，方便新手快速测试，实际线上项目建议开启
+        return super.newParser(session, method).setNeedVerify(true).setNeedVerifyLogin(true); //TODO 这里关闭校验，方便新手快速测试，实际线上项目建议开启
     }
 
     /**获取

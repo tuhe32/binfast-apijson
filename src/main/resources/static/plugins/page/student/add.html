@@ -110,19 +110,19 @@
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            deleteEmptyProperty(data.field)
-            saveBody["Student"] = data.field
-            // console.log('[saveBody]', saveBody)
-            $.ajax({
-                url: '/post',
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                dataType : "json",
-                data: JSON.stringify(saveBody),
-                success:function(resp){
-                    if(resp.code !== 200){
+            deleteEmptyProperty(data.field) // 删除json对象中的null或者''属性，先不用管
+            saveBody["Student"] = data.field // 给saveBody的Student属性赋值
+            $.ajax({ // jquery提供的ajax提交，会和后端做http请求
+                url: '/post', // http请求路径是post
+                type: "POST", // http请求类型是post
+                timeout : 3000, // 设置超时时间，默认3秒
+                contentType: "application/json; charset=utf-8", // http请求的格式类型是json
+                dataType : "json", // http请求的格式类型是json
+                data: JSON.stringify(saveBody), // 将json对象转为字符串
+                success:function(resp){ // http请求成功后会走这里
+                    if(resp.code !== 200){ // http请求判断状态是【失败】会走这里
                         layer.alert(resp.msg, { title: '保存失败', icon: 2 })
-                    }else{
+                    }else{ // http请求判断状态是【成功】会走这里
                         var index = layer.alert(resp.msg, {
                             title: '保存成功', icon: 1
                         }, function () {
@@ -134,7 +134,7 @@
                         });
                     }
                 },
-                error:function(resp){
+                error:function(resp){ // http请求失败后会走这里
                     layer.alert(resp.msg, { title: '保存失败', icon: 2 })
                 }
             })

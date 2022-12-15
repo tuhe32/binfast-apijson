@@ -75,35 +75,8 @@
             "total@":"/Access[]/total"
         }
 
-        table.render({
-            elem: '#currentTableId',
-            url: '/get',
-            method: 'post',
-            contentType: 'application/json',
+        table.render(Object.assign(tableOption('Access[]'), {
             where: search,
-            parseData: function(res){ //res 即为原始返回的数据
-                return {
-                    "code": res.code, //解析接口状态
-                    "msg": res.msg, //解析提示文本
-                    "total": res.total, //解析数据长度
-                    "data": res['Access[]'] //解析数据列表
-                };
-            },
-            response: {
-                statusCode: 200, //规定成功的状态码，默认：0
-                countName: 'total' //规定数据总数的字段名称，默认：count
-            },
-            before: function (options) {
-                search["Access[]"]["page"] = (options.page.curr || options.index) - 1
-                search["Access[]"]["count"] = (options.page.limit || options.limit)
-                options.where = search
-            },
-            toolbar: '#toolbarDemo',
-            defaultToolbar: ['filter', 'exports', 'print', {
-                title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
-                icon: 'layui-icon-tips'
-            }],
             cols: [[
                 // {type: "checkbox", width: 50},
                 // {field: 'id', width: 80, title: 'ID'},
@@ -120,13 +93,9 @@
                 {field: 'delete', width: 120, title: 'delete的角色'},
                 // {field: 'date', width: 135, title: '创建时间', sort: true},
                 {title: '操作', minWidth: 120, toolbar: '#currentTableBar', align: "center"}
-            ]],
-            limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,
-            page: true,
-            skin: 'line'
-        });
-
+            ]]
+        }))
+        
         function reloadData(searchPara) {
             const searchFlag = !!searchPara;
             let reloadOption;
