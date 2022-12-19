@@ -84,10 +84,10 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 			}
 
 			// 取消注释来实现数据库自增 id
-			//			@Override
-			//			public Long newId(RequestMethod method, String database, String schema, String datasource, String table) {
-			//				return null; // return null 则不生成 id，一般用于数据库自增 id
-			//			}
+			@Override
+			public Long newId(RequestMethod method, String database, String schema, String datasource, String table) {
+				return null; // return null 则不生成 id，一般用于数据库自增 id
+			}
 
 			//			@Override
 			//			public void onMissingKey4Combine(String name, JSONObject request, String combine, String item, String key) throws Exception {
@@ -306,10 +306,10 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 	//	}
 
 	// 如果确定只用一种数据库，可以重写方法，这种数据库直接 return true，其它数据库直接 return false，来减少判断，提高性能
-	//	@Override
-	//	public boolean isMySQL() {
-	//		return true;
-	//	}
+		@Override
+		public boolean isMySQL() {
+			return true;
+		}
 	//	@Override
 	//	public boolean isPostgreSQL() {
 	//		return false;

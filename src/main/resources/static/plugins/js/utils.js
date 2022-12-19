@@ -54,7 +54,7 @@ function fetch(url, paras, callback) {
 }
 
 
-function tableOption (listName) {
+function tableOption (listName, search) {
     return {
         elem: '#currentTableId',
         url: '/get',

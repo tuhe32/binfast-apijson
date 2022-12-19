@@ -75,8 +75,7 @@
             "total@":"/Access[]/total"
         }
 
-        table.render(Object.assign(tableOption('Access[]'), {
-            where: search,
+        table.render(Object.assign(tableOption('Access[]', search), {
             cols: [[
                 // {type: "checkbox", width: 50},
                 // {field: 'id', width: 80, title: 'ID'},
