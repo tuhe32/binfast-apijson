@@ -141,8 +141,8 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 	@Override
 	public String getDBVersion() {
 		if (isMySQL()) {
-			//return "5.7.22"; //
-            return "8.0.11"; //TODO 改成你自己的 MySQL 或 PostgreSQL 数据库版本号 //MYSQL 8 和 7 使用的 JDBC 配置不一样
+			return "5.7.22"; //
+//            return "8.0.11"; //TODO 改成你自己的 MySQL 或 PostgreSQL 数据库版本号 //MYSQL 8 和 7 使用的 JDBC 配置不一样
 		}
 		if (isPostgreSQL()) {
 			return "9.6.15"; //TODO 改成你自己的
@@ -183,7 +183,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		if (isMySQL()) {
 			// 这个是 MySQL 8.0 及以上，要加 userSSL=false  return "jdbc:mysql://localhost:3306?userSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8";
 			// 以下是 MySQL 5.7 及以下
-			return "jdbc:mysql://localhost:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8"; //TODO 改成你自己的，TiDB 可以当成 MySQL 使用，默认端口为 4000
+			return "jdbc:mysql://rds8qea57l7to6i07itlo.mysql.rds.aliyuncs.com:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8"; //TODO 改成你自己的，TiDB 可以当成 MySQL 使用，默认端口为 4000
 		}
 		if (isPostgreSQL()) {
 			return "jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified"; //TODO 改成你自己的
@@ -223,7 +223,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		}
 
 		if (isMySQL()) {
-			return "root";  //TODO 改成你自己的
+			return "ulmsale";  //TODO 改成你自己的
 		}
 		if (isPostgreSQL()) {
 			return "postgres";  //TODO 改成你自己的
@@ -262,7 +262,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		}
 
 		if (isMySQL()) {
-			return "root123456";  //TODO 改成你自己的，TiDB 可以当成 MySQL 使用， 默认密码为空字符串 ""
+			return "ulmsale";  //TODO 改成你自己的，TiDB 可以当成 MySQL 使用， 默认密码为空字符串 ""
 		}
 		if (isPostgreSQL()) {
 			return null;  //TODO 改成你自己的
