@@ -38,6 +38,9 @@ function fetch(url, paras, callback) {
         data: JSON.stringify(paras),
         success:function(resp){
             if(resp.code !== 200){
+                if (resp.code === 401) {
+                    window.location.replace("/showLogin")
+                }
                 layer.alert(resp.msg, { title: '保存失败', icon: 2 })
             }else{
                 if (callback) {
@@ -78,9 +81,9 @@ function tableOption (listName, search) {
             search[listName]["count"] = (options.page.limit || options.limit)
             options.where = search
         },
-        done: function (res, curr, count) {
-            console.log(res)
-            if (res.code === 401) {
+        done: function (resp, curr, count) {
+            console.log(resp)
+            if (resp.code === 401) {
                 window.location.replace("/showLogin")
             }
         },

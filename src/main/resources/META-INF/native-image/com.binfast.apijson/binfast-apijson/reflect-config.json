@@ -1,0 +1,7 @@
+[
+  {
+    "name": "com.binfast.apijson.config.DemoFunctionParser",
+    "allPublicMethods": true,
+    "allDeclaredConstructors": true
+  }
+]

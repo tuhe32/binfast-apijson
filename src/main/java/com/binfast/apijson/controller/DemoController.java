@@ -33,10 +33,9 @@ import com.binfast.apijson.model.Privacy;
 import com.binfast.apijson.model.User;
 import com.binfast.apijson.model.Verify;
 import com.fasterxml.jackson.databind.util.LRUMap;
-import com.vesoft.nebula.*;
 import com.vesoft.nebula.Date;
+import com.vesoft.nebula.*;
 import com.vesoft.nebula.client.graph.data.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +44,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +87,9 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
     // 可以更方便地通过日志排查错误
     @Override
     public String getRequestURL() {
-        return httpServletRequest.getRequestURL().toString();
+        HttpServletRequest request =
+                ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        return request.getRequestURL().toString();
     }
 
     /**增删改查统一的类 RESTful API 入口，牺牲一些路由解析性能来提升一点开发效率
@@ -1138,10 +1141,10 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
         );
     }
 
-    @Autowired
-    HttpServletRequest httpServletRequest;
-    @Autowired
-    HttpServletResponse httpServletResponse;
+//    @Autowired
+//    HttpServletRequest httpServletRequest;
+//    @Autowired
+//    HttpServletResponse httpServletResponse;
 
     /**代理接口，解决前端（APIAuto等）跨域问题
      * @param exceptHeaders 排除请求头，必须放在最前面，放后面可能被当成 $_delegate_url 的一部分
@@ -1159,7 +1162,9 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
             @RequestParam(value = "$_except_headers", required = false) String exceptHeaders,
             @RequestParam(value = "$_delegate_id", required = false) String sessionId,
             @RequestBody(required = false) String body,
-            HttpMethod method, HttpSession session
+            HttpMethod method, HttpSession session,
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse
     ) {
 
         if (Log.DEBUG == false) {
@@ -2009,41 +2014,41 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
     // 为 APIAuto, UnitAuto, SQLAuto 提供的后台 Headless 无 UI 测试转发接口  <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     @GetMapping("api/test/start")
-    public String startApiTest(HttpSession session) {
+    public String startApiTest(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         //response.sendRedirect("http://localhost:3000/test/start");
         long id = 100000 + Math.round(899999*Math.random());
         DemoParser.KEY_MAP.put(String.valueOf(id), session);  // 调这个接口一般是前端/CI/CD，调查询接口的是 Node，Session 不同 session.setAttribute("key", id);
-        return delegate("http://localhost:3000/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3000/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session, request, response);
     }
     @GetMapping("api/test/status")
-    public String getApiTestStatus(@RequestParam(value = "key", required = false) String key, HttpSession session) {
+    public String getApiTestStatus(@RequestParam(value = "key", required = false) String key, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         //response.sendRedirect("http://localhost:3000/test/status");
         DemoParser.KEY_MAP.remove(key);
-        return delegate("http://localhost:3000/test/status", null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3000/test/status", null, null, null, null, HttpMethod.GET, session, request, response);
     }
 
     @GetMapping("unit/test/start")
-    public String startUnitTest(HttpSession session) {
+    public String startUnitTest(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         long id = 100000 + Math.round(899999*Math.random());
         DemoParser.KEY_MAP.put(String.valueOf(id), session);  // 调这个接口一般是前端/CI/CD，调查询接口的是 Node，Session 不同 session.setAttribute("key", id);
-        return delegate("http://localhost:3001/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3001/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session, request, response);
     }
     @GetMapping("unit/test/status")
-    public String getUnitTestStatus(@RequestParam(value = "key", required = false) String key, HttpSession session) {
+    public String getUnitTestStatus(@RequestParam(value = "key", required = false) String key, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         DemoParser.KEY_MAP.remove(key);
-        return delegate("http://localhost:3001/test/status", null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3001/test/status", null, null, null, null, HttpMethod.GET, session, request, response);
     }
 
     @GetMapping("sql/test/start")
-    public String startSQLTest(HttpSession session) {
+    public String startSQLTest(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         long id = 100000 + Math.round(899999*Math.random());
         DemoParser.KEY_MAP.put(String.valueOf(id), session);  // 调这个接口一般是前端/CI/CD，调查询接口的是 Node，Session 不同 session.setAttribute("key", id);
-        return delegate("http://localhost:3002/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3002/test/start?key=" + id, null, null, null, null, HttpMethod.GET, session, request, response);
     }
     @GetMapping("sql/test/status")
-    public String getSQLTestStatus(@RequestParam("key") String key, HttpSession session) {
+    public String getSQLTestStatus(@RequestParam("key") String key, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         DemoParser.KEY_MAP.remove(key);
-        return delegate("http://localhost:3002/test/status", null, null, null, null, HttpMethod.GET, session);
+        return delegate("http://localhost:3002/test/status", null, null, null, null, HttpMethod.GET, session, request, response);
     }
 
     // 为 APIAuto, UnitAuto, SQLAuto 提供的后台 Headless 无 UI 测试转发接口  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
