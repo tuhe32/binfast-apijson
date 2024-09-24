@@ -261,6 +261,20 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>test-native</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-native</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
 <!--                        <id>add-reachability-metadata</id>-->
                         <goals>
                             <goal>add-reachability-metadata</goal>
@@ -475,6 +489,7 @@
                                 <enabled>true</enabled>
                             </metadataRepository>
                             <requiredVersion>22.3</requiredVersion>
+                            <extensions>true</extensions>-->
                             <!--移除对yaml的支持-->
                             <removeYamlSupport>true</removeYamlSupport>
                             <!--移除对jmx的支持-->
@@ -484,6 +499,20 @@
                             </buildArgs>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>test-native</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>build-native</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>add-reachability-metadata</id>
                                 <goals>
