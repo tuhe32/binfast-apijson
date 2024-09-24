@@ -73,7 +73,7 @@ public class DemoSQLExecutor extends APIJSONSQLExecutor {
     Log.d(TAG, "getConnection  config.getDatasource() = " + datasource);
 
     String key = datasource + "-" + config.getDatabase();
-    Connection c = connectionMap.get(key);
+    Connection c = (Connection) connectionMap.get(key);
     if (datasource != null && (c == null || c.isClosed())) {
       try {
         DataSource ds;

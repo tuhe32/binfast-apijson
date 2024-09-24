@@ -2,6 +2,7 @@ package com.binfast.apijson.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.binfast.apijson.config.DemoParser;
+import jakarta.annotation.PostConstruct;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

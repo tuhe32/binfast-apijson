@@ -114,7 +114,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		tableColumnMap.put("User", Arrays.asList(StringUtil.split("id,sex,name,tag,head,contactIdList,pictureList,date")));
 		// 需要对应方法传参也是这样拼接才行，例如 ColumnUtil.compatInputColumn(column, getSQLDatabase() + "-" + getSQLSchema() + "-" + getTable(), getMethod());
 		tableColumnMap.put("MYSQL-sys-Privacy", Arrays.asList(StringUtil.split("id,certified,phone,balance,_password,_payPassword")));
-		ColumnUtil.VERSIONED_TABLE_COLUMN_MAP.put(null, tableColumnMap);
+		ColumnUtil.VERSIONED_TABLE_COLUMN_MAP.put(0, tableColumnMap);
 
 		// 字段名映射配置 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		Map<String, Map<String, String>> tableKeyColumnMap = new HashMap<>();
@@ -129,7 +129,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		// 需要对应方法传参也是这样拼接才行，例如 ColumnUtil.compatInputKey(super.getKey(key), getSQLDatabase() + "-" + getSQLSchema() + "-" + getTable(), getMethod());
 		tableKeyColumnMap.put("MYSQL-sys-Privacy", privacyKeyColumnMap);
 
-		ColumnUtil.VERSIONED_KEY_COLUMN_MAP.put(null, tableKeyColumnMap);
+		ColumnUtil.VERSIONED_KEY_COLUMN_MAP.put(0, tableKeyColumnMap);
 		// 字段名映射配置 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 		ColumnUtil.init();
@@ -141,8 +141,8 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 	@Override
 	public String getDBVersion() {
 		if (isMySQL()) {
-			//return "5.7.22"; //
-            return "8.0.11"; //TODO 改成你自己的 MySQL 或 PostgreSQL 数据库版本号 //MYSQL 8 和 7 使用的 JDBC 配置不一样
+			return "5.7.22"; //
+//            return "8.0.11"; //TODO 改成你自己的 MySQL 或 PostgreSQL 数据库版本号 //MYSQL 8 和 7 使用的 JDBC 配置不一样
 		}
 		if (isPostgreSQL()) {
 			return "9.6.15"; //TODO 改成你自己的
@@ -183,7 +183,7 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 		if (isMySQL()) {
 			// 这个是 MySQL 8.0 及以上，要加 userSSL=false  return "jdbc:mysql://localhost:3306?userSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8";
 			// 以下是 MySQL 5.7 及以下
-			return "jdbc:mysql://localhost:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8"; //TODO 改成你自己的，TiDB 可以当成 MySQL 使用，默认端口为 4000
+			return "jdbc:mysql://172.16.1.35:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8"; //TODO 改成你自己的，TiDB 可以当成 MySQL 使用，默认端口为 4000
 		}
 		if (isPostgreSQL()) {
 			return "jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified"; //TODO 改成你自己的
@@ -363,14 +363,14 @@ public class DemoSQLConfig extends APIJSONSQLConfig {
 	protected void onGetCrossJoinString(Join j) throws UnsupportedOperationException {
 		// 开启 CROSS JOIN 笛卡尔积联表  	super.onGetCrossJoinString(j);
 	}
-	@Override
-	protected void onJoinNotRelation(String sql, String quote, Join j, String jt, List<On> onList, On on) {
+//	@Override
+//	protected void onJoinNotRelation(String sql, String quote, Join join, String table, List<Join.On> onList, Join.On on) {
 		// 开启 JOIN	ON t1.c1 != t2.c2 等不等式关联 	super.onJoinNotRelation(sql, quote, j, jt, onList, on);
-	}
-	@Override
-	protected void onJoinComplextRelation(String sql, String quote, Join j, String jt, List<On> onList, On on) {
-		// 开启 JOIN	ON t1.c1 LIKE concat('%', t2.c2, '%') 等复杂关联		super.onJoinComplextRelation(sql, quote, j, jt, onList, on);
-	}
+//	}
+//	@Override
+//	protected void onJoinComplextRelation(String sql, String quote, Join j, String jt, List<On> onList, On on) {
+//		// 开启 JOIN	ON t1.c1 LIKE concat('%', t2.c2, '%') 等复杂关联		super.onJoinComplextRelation(sql, quote, j, jt, onList, on);
+//	}
 
 
 

@@ -22,8 +22,8 @@ import apijson.orm.SQLConfig;
 import com.alibaba.fastjson.JSONObject;
 import com.binfast.apijson.controller.DemoController;
 import com.binfast.apijson.model.Privacy;
+import jakarta.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 

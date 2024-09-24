@@ -20,8 +20,8 @@ import apijson.framework.APIJSONObjectParser;
 import apijson.orm.Join;
 import apijson.orm.SQLConfig;
 import com.alibaba.fastjson.JSONObject;
+import jakarta.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -35,10 +35,10 @@ public class DemoObjectParser extends APIJSONObjectParser {
         super(session, request, parentPath, arrayConfig, isSubquery, isTable, isArrayMainTable);
     }
 
-    @Override
-    public SQLConfig newSQLConfig(RequestMethod method, String table, String alias, JSONObject request, List<Join> joinList, boolean isProcedure) throws Exception {
-        return DemoSQLConfig.newSQLConfig(method, table, alias, request, joinList, isProcedure);
-    }
+//    @Override
+//    public SQLConfig newSQLConfig(RequestMethod method, String table, String alias, JSONObject request, List<Join> joinList, boolean isProcedure) throws Exception {
+//        return DemoSQLConfig.newSQLConfig(method, table, alias, request, joinList, isProcedure);
+//    }
 
 
 }
