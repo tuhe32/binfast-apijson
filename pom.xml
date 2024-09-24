@@ -251,6 +251,13 @@
                         <enabled>true</enabled>
                     </metadataRepository>
                     <requiredVersion>22.3</requiredVersion>
+                    <!--移除对yaml的支持-->
+                    <removeYamlSupport>true</removeYamlSupport>
+                    <!--移除对jmx的支持-->
+                    <removeJmxSupport>true</removeJmxSupport>
+                    <buildArgs>
+                        --initialize-at-build-time=java.beans.Introspector
+                    </buildArgs>
                 </configuration>
                 <executions>
                     <execution>
@@ -468,6 +475,13 @@
                                 <enabled>true</enabled>
                             </metadataRepository>
                             <requiredVersion>22.3</requiredVersion>
+                            <!--移除对yaml的支持-->
+                            <removeYamlSupport>true</removeYamlSupport>
+                            <!--移除对jmx的支持-->
+                            <removeJmxSupport>true</removeJmxSupport>
+                            <buildArgs>
+                                --initialize-at-build-time=java.beans.Introspector
+                            </buildArgs>
                         </configuration>
                         <executions>
                             <execution>
