@@ -256,6 +256,8 @@
                     <!--移除对jmx的支持-->
                     <removeJmxSupport>true</removeJmxSupport>
                     <buildArgs>
+                        -H:+AllowVMInspection
+                        -H:+ReportUnsupportedElementsAtRuntime
                         --initialize-at-build-time=java.beans.Introspector
                     </buildArgs>
                 </configuration>
@@ -495,6 +497,8 @@
                             <!--移除对jmx的支持-->
                             <removeJmxSupport>true</removeJmxSupport>
                             <buildArgs>
+                                -H:+AllowVMInspection
+                                -H:+ReportUnsupportedElementsAtRuntime
                                 --initialize-at-build-time=java.beans.Introspector
                             </buildArgs>
                         </configuration>
