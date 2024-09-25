@@ -222,12 +222,12 @@
                         </exclude>
                     </excludes>
 <!--                    <classifier>${repackage.classifier}</classifier>-->
-                    <image>
-                        <builder>paketobuildpacks/builder:tiny</builder>
-                        <env>
-                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                        </env>
-                    </image>
+<!--                    <image>-->
+<!--                        <builder>paketobuildpacks/builder:tiny</builder>-->
+<!--                        <env>-->
+<!--                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>-->
+<!--                        </env>-->
+<!--                    </image>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -243,8 +243,8 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <jvmArgs>
-                        <arg>-Xmx6g</arg>
-                        <arg>-Xms6g</arg>
+                        <arg>-Xmx8g</arg>
+                        <arg>-Xms8g</arg>
                     </jvmArgs>
                     <agent>
                         <enabled>true</enabled>
