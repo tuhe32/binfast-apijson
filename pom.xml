@@ -242,6 +242,18 @@
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
+                    <agent>
+                        <enabled>true</enabled>
+                        <modes>
+                            <conditional>
+                                <userCodeFilterPath>${user.dir}/src/main/resources/META-INF/native-image/user-code-filter.json
+                                </userCodeFilterPath>
+                                <extraFilterPath>${user.dir}/src/main/resources/META-INF/native-image/extra-filter.json
+                                </extraFilterPath>
+                                <parallel>true</parallel>
+                            </conditional>
+                        </modes>
+                    </agent>
                     <arguments>
                         <argument>--enable-preview</argument>
                         <argument>--reflective-config-file=reflect-config.json</argument>
@@ -259,6 +271,7 @@
                         -H:+AllowVMInspection
                         -H:+ReportUnsupportedElementsAtRuntime
                         --initialize-at-build-time=java.beans.Introspector
+                        --verbose
                     </buildArgs>
                 </configuration>
                 <executions>
@@ -500,6 +513,7 @@
                                 -H:+AllowVMInspection
                                 -H:+ReportUnsupportedElementsAtRuntime
                                 --initialize-at-build-time=java.beans.Introspector
+                                --verbose
                             </buildArgs>
                         </configuration>
                         <executions>
