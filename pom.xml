@@ -270,9 +270,9 @@
                     <buildArgs>
                         --enable-monitoring
                         --initialize-at-build-time=java.beans.Introspector
-                        --verbose
+<!--                        &#45;&#45;verbose-->
                         --no-fallback
-                        --enable-url-protocols=http,https
+<!--                        &#45;&#45;enable-url-protocols=http,https-->
                     </buildArgs>
                     <verbose>true</verbose>
                 </configuration>
