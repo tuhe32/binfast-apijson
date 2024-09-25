@@ -243,8 +243,8 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <jvmArgs>
-                        <arg>-Xmx4g</arg>
-                        <arg>-Xms4g</arg>
+                        <arg>-Xmx6g</arg>
+                        <arg>-Xms6g</arg>
                     </jvmArgs>
                     <agent>
                         <enabled>true</enabled>
