@@ -33,9 +33,9 @@ import com.binfast.apijson.model.Privacy;
 import com.binfast.apijson.model.User;
 import com.binfast.apijson.model.Verify;
 import com.fasterxml.jackson.databind.util.LRUMap;
-import com.vesoft.nebula.Date;
-import com.vesoft.nebula.*;
-import com.vesoft.nebula.client.graph.data.*;
+//import com.vesoft.nebula.Date;
+//import com.vesoft.nebula.*;
+//import com.vesoft.nebula.client.graph.data.*;
 import org.springframework.cache.Cache;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -1437,124 +1437,125 @@ public class DemoController extends APIJSONRouterController<Long> {  // APIJSONC
 
                 result.put("time:start|duration|end|parse|sql", startTime + "|" + duration + "|" + endTime + "|" + parseDuration + "|" + sqlDuration);
 
+                return result.toJSONString();
 //      return result.toJSONString();
-                return com.alibaba.fastjson.JSON.toJSONString(result, new ValueFilter() {
-                    @Override
-                    public Object process(Object o, String key, Object val) {
-                        if (val instanceof Cache.ValueWrapper) {
-                            return process(o, key, ((ValueWrapper) val).getValue());
-                        }
-
-                        if (val instanceof Value) {
-                            return process(o, key, ((Value) val).getFieldValue());
-                        }
-
-                        if (val instanceof Vertex) {
-                            JSONObject obj = new JSONObject(true);
-                            obj.put("vid", new String(((Vertex) val).getVid().getSVal()));
-                            obj.put("str", val.toString());
-
-                            List<Tag> tags = ((Vertex) val).getTags();
-
-                            if (tags != null) {
-                                JSONArray arr = new JSONArray();
-                                for (int i = 0; i < tags.size(); i++) {
-                                    arr.add(process(o, String.valueOf(i), tags.get(i)));
-                                }
-                                obj.put("tags", arr);
-                            }
-
-                            return obj;
-                        }
-
-                        if (val instanceof Tag) {
-                            JSONObject obj = new JSONObject(true);
-                            obj.put("name", new String(((Tag) val).getName()));
-                            obj.put("str", val.toString());
-
-                            Map<byte[], Value> props = ((Tag) val).getProps();
-
-                            if (props != null) {
-                                JSONObject propsObj = new JSONObject(true);
-                                props.forEach(new BiConsumer<byte[], Value>() {
-                                    @Override
-                                    public void accept(byte[] bytes, Value value) {
-                                        String k = new String(bytes);
-                                        propsObj.put(k, process(propsObj, k, value));
-                                    }
-                                });
-                                obj.put("props", propsObj);
-                            }
-
-                            return obj;
-                        }
-
-                        if (val instanceof Edge) {
-                            JSONObject obj = new JSONObject(true);
-                            obj.put("name", new String(((Edge) val).getName()));
-                            obj.put("str", val.toString());
-
-                            Map<byte[], Value> props = ((Edge) val).getProps();
-
-                            if (props != null) {
-                                JSONObject propsObj = new JSONObject(true);
-                                props.forEach(new BiConsumer<byte[], Value>() {
-                                    @Override
-                                    public void accept(byte[] bytes, Value value) {
-                                        String k = new String(bytes);
-                                        propsObj.put(k, process(propsObj, k, value));
-                                    }
-                                });
-                                obj.put("props", propsObj);
-                            }
-
-                            return obj;
-                        }
-
-                        if (val instanceof NullType) {
-                            return null;
-                        }
-
-                        if (val instanceof DateWrapper) {
-                            return ((DateWrapper) val).toString();
-                        }
-
-                        if (val instanceof TimeWrapper) {
-                            return ((TimeWrapper) val).getLocalTimeStr();
-                        }
-
-                        if (val instanceof DateTimeWrapper) {
-                            return ((DateTimeWrapper) val).getLocalDateTimeStr();
-                        }
-
-                        if (val instanceof DurationWrapper) {
-                            return ((DurationWrapper) val).getMicroseconds();
-                        }
-
-                        if (val instanceof Date) {
-                            Date d = (Date) val;
-                            return new java.sql.Date(d.getYear() - 1900, d.getMonth(), d.getDay()).toString();
-                        }
-
-                        if (val instanceof Time) {
-                            Time t = (Time) val;
-                            return new java.sql.Time(t.getHour(), t.getMinute(), t.getSec()).toString();
-                        }
-
-                        if (val instanceof DateTime) {
-                            DateTime dt = (DateTime) val;
-                            //  return new java.util.Date(dt.getYear(), dt.getNonth(), dt.getDayO, dt.getHour(), dt.getMinute(), dt.getSec0).toGnTString();
-                            return new java.sql.Date(dt.getYear() - 1988, dt.getMonth(), dt.getDay())
-                                    + " " + new java.sql.Time(dt.getHour(), dt.getMinute(), dt.getSec());
-                        }
-
-                        if (val instanceof Duration) {
-                            return ((Duration) val).getMicroseconds();
-                        }
-
-                        return val;
-                    }
-                }, SerializerFeature.WriteMapNullValue);
+//                return com.alibaba.fastjson.JSON.toJSONString(result, new ValueFilter() {
+//                    @Override
+//                    public Object process(Object o, String key, Object val) {
+//                        if (val instanceof Cache.ValueWrapper) {
+//                            return process(o, key, ((ValueWrapper) val).getValue());
+//                        }
+//
+//                        if (val instanceof Value) {
+//                            return process(o, key, ((Value) val).getFieldValue());
+//                        }
+//
+//                        if (val instanceof Vertex) {
+//                            JSONObject obj = new JSONObject(true);
+//                            obj.put("vid", new String(((Vertex) val).getVid().getSVal()));
+//                            obj.put("str", val.toString());
+//
+//                            List<Tag> tags = ((Vertex) val).getTags();
+//
+//                            if (tags != null) {
+//                                JSONArray arr = new JSONArray();
+//                                for (int i = 0; i < tags.size(); i++) {
+//                                    arr.add(process(o, String.valueOf(i), tags.get(i)));
+//                                }
+//                                obj.put("tags", arr);
+//                            }
+//
+//                            return obj;
+//                        }
+//
+//                        if (val instanceof Tag) {
+//                            JSONObject obj = new JSONObject(true);
+//                            obj.put("name", new String(((Tag) val).getName()));
+//                            obj.put("str", val.toString());
+//
+//                            Map<byte[], Value> props = ((Tag) val).getProps();
+//
+//                            if (props != null) {
+//                                JSONObject propsObj = new JSONObject(true);
+//                                props.forEach(new BiConsumer<byte[], Value>() {
+//                                    @Override
+//                                    public void accept(byte[] bytes, Value value) {
+//                                        String k = new String(bytes);
+//                                        propsObj.put(k, process(propsObj, k, value));
+//                                    }
+//                                });
+//                                obj.put("props", propsObj);
+//                            }
+//
+//                            return obj;
+//                        }
+//
+//                        if (val instanceof Edge) {
+//                            JSONObject obj = new JSONObject(true);
+//                            obj.put("name", new String(((Edge) val).getName()));
+//                            obj.put("str", val.toString());
+//
+//                            Map<byte[], Value> props = ((Edge) val).getProps();
+//
+//                            if (props != null) {
+//                                JSONObject propsObj = new JSONObject(true);
+//                                props.forEach(new BiConsumer<byte[], Value>() {
+//                                    @Override
+//                                    public void accept(byte[] bytes, Value value) {
+//                                        String k = new String(bytes);
+//                                        propsObj.put(k, process(propsObj, k, value));
+//                                    }
+//                                });
+//                                obj.put("props", propsObj);
+//                            }
+//
+//                            return obj;
+//                        }
+//
+//                        if (val instanceof NullType) {
+//                            return null;
+//                        }
+//
+//                        if (val instanceof DateWrapper) {
+//                            return ((DateWrapper) val).toString();
+//                        }
+//
+//                        if (val instanceof TimeWrapper) {
+//                            return ((TimeWrapper) val).getLocalTimeStr();
+//                        }
+//
+//                        if (val instanceof DateTimeWrapper) {
+//                            return ((DateTimeWrapper) val).getLocalDateTimeStr();
+//                        }
+//
+//                        if (val instanceof DurationWrapper) {
+//                            return ((DurationWrapper) val).getMicroseconds();
+//                        }
+//
+//                        if (val instanceof Date) {
+//                            Date d = (Date) val;
+//                            return new java.sql.Date(d.getYear() - 1900, d.getMonth(), d.getDay()).toString();
+//                        }
+//
+//                        if (val instanceof Time) {
+//                            Time t = (Time) val;
+//                            return new java.sql.Time(t.getHour(), t.getMinute(), t.getSec()).toString();
+//                        }
+//
+//                        if (val instanceof DateTime) {
+//                            DateTime dt = (DateTime) val;
+//                            //  return new java.util.Date(dt.getYear(), dt.getNonth(), dt.getDayO, dt.getHour(), dt.getMinute(), dt.getSec0).toGnTString();
+//                            return new java.sql.Date(dt.getYear() - 1988, dt.getMonth(), dt.getDay())
+//                                    + " " + new java.sql.Time(dt.getHour(), dt.getMinute(), dt.getSec());
+//                        }
+//
+//                        if (val instanceof Duration) {
+//                            return ((Duration) val).getMicroseconds();
+//                        }
+//
+//                        return val;
+//                    }
+//                }, SerializerFeature.WriteMapNullValue);
             } catch (Exception e) {
                 JSONObject result = DemoParser.newErrorResult(e);
                 result.put("throw", e.getClass().getName());
