@@ -66,11 +66,11 @@
             <artifactId>unitauto-jar</artifactId>
             <version>3.0.5</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.classgraph</groupId>
-            <artifactId>classgraph</artifactId>
-            <version>4.8.175</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.classgraph</groupId>-->
+<!--            <artifactId>classgraph</artifactId>-->
+<!--            <version>4.8.175</version>-->
+<!--        </dependency>-->
         <!-- 单元测试：可使用 libs 目录的 unitauto-java.jar 和 unitauto-jar.jar 来替代，两种方式二选一 >>>>>>>>> -->
 
 
@@ -99,21 +99,21 @@
 
         <!-- 需要用的数据库 JDBC 驱动 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.29</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.nebula-contrib</groupId>
             <artifactId>nebula-jdbc</artifactId>
-            <version>3.0.0</version>
+            <version>3.3.0</version>
         </dependency>
 
         <!-- 需要用的 HikariCP 数据库连接池库，3.1.0 以上 -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>5.1.0</version>
+<!--            <version>5.1.0</version>-->
         </dependency>
 
         <dependency>
