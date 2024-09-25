@@ -272,7 +272,6 @@
                         --initialize-at-build-time=java.beans.Introspector
                         --verbose
                         --no-fallback
-                        --no-server
                         --enable-url-protocols=http,https
                     </buildArgs>
                     <verbose>true</verbose>
