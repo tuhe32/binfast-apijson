@@ -1,0 +1,42 @@
+{
+  "rules": [
+    {"includeClasses": "**"},
+    {"excludeClasses": "com.oracle.svm.**"},
+    {"includeClasses": "com.oracle.svm.tutorial.*"},
+    {"excludeClasses": "com.oracle.svm.tutorial.HostedHelper"},
+    {"excludeClasses": "java.lang.management.**"},
+    {"excludeClasses": "jdk.management.**"},
+    {"excludeClasses": "com.sun.management.**"},
+    {"excludeClasses": "sun.management.**"},
+    {"excludeClasses": "javax.management.**"},
+
+    {"excludeClasses": "com.ibm.icu.text.**"},
+    {"excludeClasses": "java.**"},
+    {"includeClasses": "java.util.Properties"},
+    {"includeClasses": "java.lang.Thread"},
+    {"excludeClasses": "javax.naming.**"},
+    {"excludeClasses": "javax.sql.**"},
+    {"excludeClasses": "sun.misc.**"},
+    {"excludeClasses": "sun.security.**"},
+
+    {"excludeClasses": "com.alibaba.druid.**"},
+    {"excludeClasses": "com.baomidou.mybatisplus.**"},
+    {"excludeClasses": "com.fasterxml.jackson.**"},
+    {"excludeClasses": "com.mchange.v2.**"},
+    {"excludeClasses": "com.zaxxer.**"},
+    {"excludeClasses": "jakarta.servlet.**"},
+    {"excludeClasses": "oracle.ucp.**"},
+    {"excludeClasses": "org.apache.commons.**"},
+    {"excludeClasses": "org.apache.ibatis.**"},
+    {"excludeClasses": "org.apache.tomcat.jdbc.**"},
+    {"excludeClasses": "org.h2.**"},
+    {"excludeClasses": "org.mybatis.spring.**"},
+    {"excludeClasses": "org.springframework.**"},
+
+    {"excludeClasses": "com.example.bootnative.**"}
+  ],
+  "regexRules": [
+    {"excludeClasses": ".*fixture*.*"},
+    {"excludeClasses": ".*Test*.*"}
+  ]
+}
