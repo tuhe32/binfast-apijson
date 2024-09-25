@@ -244,58 +244,57 @@
                 <configuration>
                     <agent>
                         <enabled>true</enabled>
-                        <modes>
-                            <conditional>
-                                <userCodeFilterPath>${user.dir}/src/main/resources/META-INF/native-image/user-code-filter.json
-                                </userCodeFilterPath>
-                                <extraFilterPath>${user.dir}/src/main/resources/META-INF/native-image/extra-filter.json
-                                </extraFilterPath>
-                                <parallel>true</parallel>
-                            </conditional>
-                        </modes>
+<!--                        <modes>-->
+<!--                            <conditional>-->
+<!--                                <userCodeFilterPath>${user.dir}/src/main/resources/META-INF/native-image/user-code-filter.json-->
+<!--                                </userCodeFilterPath>-->
+<!--                                <extraFilterPath>${user.dir}/src/main/resources/META-INF/native-image/extra-filter.json-->
+<!--                                </extraFilterPath>-->
+<!--                                <parallel>true</parallel>-->
+<!--                            </conditional>-->
+<!--                        </modes>-->
                     </agent>
-                    <arguments>
-                        <argument>--enable-preview</argument>
-                        <argument>--reflective-config-file=reflect-config.json</argument>
-                    </arguments>
+<!--                    <arguments>-->
+<!--                        <argument>&#45;&#45;enable-preview</argument>-->
+<!--                        <argument>&#45;&#45;reflective-config-file=reflect-config.json</argument>-->
+<!--                    </arguments>-->
                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                     <metadataRepository>
                         <enabled>true</enabled>
                     </metadataRepository>
                     <requiredVersion>22.3</requiredVersion>
                     <!--移除对yaml的支持-->
-                    <removeYamlSupport>true</removeYamlSupport>
-                    <!--移除对jmx的支持-->
-                    <removeJmxSupport>true</removeJmxSupport>
+<!--                    <removeYamlSupport>true</removeYamlSupport>-->
+<!--                    &lt;!&ndash;移除对jmx的支持&ndash;&gt;-->
+<!--                    <removeJmxSupport>true</removeJmxSupport>-->
                     <buildArgs>
-                        -H:+AllowVMInspection
-                        -H:+ReportUnsupportedElementsAtRuntime
+                        --enable-monitoring
                         --initialize-at-build-time=java.beans.Introspector
                         --verbose
                     </buildArgs>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>build-native</id>
+                        <goals>
+                            <goal>compile-no-fork</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
                         <id>test-native</id>
-                        <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
+                        <phase>test</phase>
                     </execution>
-                    <execution>
-                        <id>build-native</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-<!--                        <id>add-reachability-metadata</id>-->
-                        <goals>
-                            <goal>add-reachability-metadata</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
+<!--                    <execution>-->
+<!--&lt;!&ndash;                        <id>add-reachability-metadata</id>&ndash;&gt;-->
+<!--                        <goals>-->
+<!--                            <goal>add-reachability-metadata</goal>-->
+<!--                            <goal>compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
                 </executions>
             </plugin>
             <!-- Spring AOT 插件 -->
@@ -379,11 +378,14 @@
 <!--            <url>https://repo.spring.io/release</url>-->
 <!--        </pluginRepository>-->
         <pluginRepository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
+            <id>graalvm-native-build-tools-snapshots</id>
+            <name>GraalVM native-build-tools Snapshots</name>
+            <url>https://raw.githubusercontent.com/graalvm/native-build-tools/snapshots</url>
+            <releases>
                 <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
