@@ -273,7 +273,7 @@
                         --verbose
                         --no-fallback
                         --no-server
-                        >--enable-url-protocols=http,https
+                        --enable-url-protocols=http,https
                     </buildArgs>
                     <verbose>true</verbose>
                 </configuration>
