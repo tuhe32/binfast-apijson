@@ -16,7 +16,7 @@
     <description>binfast-apijson</description>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.3.3</spring-boot.version>
@@ -275,7 +275,7 @@
                     <metadataRepository>
                         <enabled>true</enabled>
                     </metadataRepository>
-                    <requiredVersion>22.3</requiredVersion>
+                    <requiredVersion>23.1</requiredVersion>
                     <!--移除对yaml的支持-->
 <!--                    <removeYamlSupport>true</removeYamlSupport>-->
 <!--                    &lt;!&ndash;移除对jmx的支持&ndash;&gt;-->
