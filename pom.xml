@@ -21,6 +21,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.3.3</spring-boot.version>
         <repackage.classifier/>
+        <mainClass>com.binfast.apijson.BinfastApijsonApplication</mainClass>
 <!--        <spring-native.version>0.12.2</spring-native.version>-->
     </properties>
 
@@ -158,13 +159,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.graalvm.buildtools</groupId>
-            <artifactId>graalvm-reachability-metadata</artifactId>
-            <version>0.10.2</version>
-            <classifier>repository</classifier>
-            <type>zip</type>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.graalvm.buildtools</groupId>-->
+<!--            <artifactId>graalvm-reachability-metadata</artifactId>-->
+<!--            <version>0.10.2</version>-->
+<!--            <classifier>repository</classifier>-->
+<!--            <type>zip</type>-->
+<!--        </dependency>-->
     </dependencies>
 
 <!--    <dependencyManagement>-->
@@ -249,7 +250,7 @@
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.binfast.apijson.BinfastApijsonApplication</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                     <jvmArgs>
                         <arg>-Xmx8g</arg>
                         <arg>-Xms8g</arg>
@@ -313,6 +314,29 @@
 <!--                    </execution>-->
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>java-agent</id>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>test</phase>-->
+<!--                        <configuration>-->
+<!--                            <executable>java</executable>-->
+<!--                            <workingDirectory>${project.build.directory}</workingDirectory>-->
+<!--                            <arguments>-->
+<!--                                <argument>-classpath</argument>-->
+<!--                                <classpath/>-->
+<!--                                <argument>${mainClass}</argument>-->
+<!--                            </arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!-- Spring AOT 插件 -->
 <!--            <plugin>-->
 <!--                <groupId>org.graalvm.buildtools</groupId>-->
@@ -435,17 +459,17 @@
                             <configuration>
                                 <agent>
                                     <enabled>true</enabled>
-                                    <defaultMode>Conditional</defaultMode>
-                                    <modes>
-                                        <conditional>
-                                            <userCodeFilterPath>${user.dir}/native-image/user-code-filter.json
-                                            </userCodeFilterPath>
-                                            <extraFilterPath>${user.dir}/native-image/extra-filter.json
-                                            </extraFilterPath>
-                                            <reflectConfigPath>${user.dir}/native-image/reflect-config.json</reflectConfigPath>
-                                            <parallel>true</parallel>
-                                        </conditional>
-                                    </modes>
+<!--                                    <defaultMode>Conditional</defaultMode>-->
+<!--                                    <modes>-->
+<!--                                        <conditional>-->
+<!--                                            <userCodeFilterPath>${user.dir}/native-image/user-code-filter.json-->
+<!--                                            </userCodeFilterPath>-->
+<!--                                            <extraFilterPath>${user.dir}/native-image/extra-filter.json-->
+<!--                                            </extraFilterPath>-->
+<!--                                            <reflectConfigPath>${user.dir}/native-image/reflect-config.json</reflectConfigPath>-->
+<!--                                            <parallel>true</parallel>-->
+<!--                                        </conditional>-->
+<!--                                    </modes>-->
                                     <metadataCopy>
                                         <disabledStages>
                                             <stage>main</stage>

@@ -1,0 +1,14 @@
+[
+  {
+    "interfaces":["org.springframework.boot.context.properties.ConfigurationProperties"]
+  },
+  {
+    "interfaces":["org.springframework.boot.test.context.SpringBootTest"]
+  },
+  {
+    "interfaces":["org.springframework.test.context.BootstrapWith"]
+  },
+  {
+    "interfaces":["org.springframework.web.bind.annotation.RequestMapping"]
+  }
+]
