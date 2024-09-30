@@ -36,7 +36,10 @@
     }, 
     {
       "pattern":"\\Qapijson/router/APIJSONRouterController.class\\E"
-    }, 
+    },
+    {
+      "pattern":"\\Qapijson/orm/AbstractSQLConfig.class\\E"
+    },
     {
       "pattern":"\\Qapplication.properties\\E"
     }, 

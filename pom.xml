@@ -55,6 +55,11 @@
 <!--            <artifactId>javax.servlet-api</artifactId>-->
 <!--            <version>4.0.1</version>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+        </dependency>
 
         <!-- 单元测试：可使用 libs 目录的 unitauto-java.jar 和 unitauto-jar.jar 来替代，两种方式二选一 <<<<<<<<< -->
         <dependency>
@@ -191,22 +196,27 @@
             </resource>
         </resources>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifestEntries>-->
-<!--                            <Spring-Boot-Native-Processed>true</Spring-Boot-Native-Processed>-->
-<!--                        </manifestEntries>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <Spring-Boot-Native-Processed>true</Spring-Boot-Native-Processed>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.12.1</version>
                 <configuration>
+                    <fork>true</fork>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
@@ -237,83 +247,16 @@
 <!--                        </env>-->
 <!--                    </image>-->
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>process-aot</id>
-                        <goals>
-                            <goal>process-aot</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>${mainClass}</mainClass>
-                    <jvmArgs>
-                        <arg>-Xmx8g</arg>
-                        <arg>-Xms8g</arg>
-                    </jvmArgs>
-                    <agent>
-                        <enabled>true</enabled>
-<!--                        <modes>-->
-<!--                            <conditional>-->
-<!--                                <userCodeFilterPath>${user.dir}/src/main/resources/META-INF/native-image/user-code-filter.json-->
-<!--                                </userCodeFilterPath>-->
-<!--                                <extraFilterPath>${user.dir}/src/main/resources/META-INF/native-image/extra-filter.json-->
-<!--                                </extraFilterPath>-->
-<!--                                <parallel>true</parallel>-->
-<!--                            </conditional>-->
-<!--                        </modes>-->
-                    </agent>
-<!--                    <arguments>-->
-<!--                        <argument>&#45;&#45;enable-preview</argument>-->
-<!--                        <argument>&#45;&#45;reflective-config-file=reflect-config.json</argument>-->
-<!--                    </arguments>-->
-                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-                    <metadataRepository>
-                        <enabled>true</enabled>
-                    </metadataRepository>
-                    <requiredVersion>23.1</requiredVersion>
-                    <!--移除对yaml的支持-->
-<!--                    <removeYamlSupport>true</removeYamlSupport>-->
-<!--                    &lt;!&ndash;移除对jmx的支持&ndash;&gt;-->
-<!--                    <removeJmxSupport>true</removeJmxSupport>-->
-                    <buildArgs>
-                        --enable-monitoring
-<!--                        &#45;&#45;initialize-at-build-time=java.beans.Introspector-->
-<!--                        &#45;&#45;verbose-->
-                        --no-fallback
-<!--                        &#45;&#45;enable-url-protocols=http,https-->
-                    </buildArgs>
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build-native</id>
-                        <goals>
-                            <goal>compile-no-fork</goal>
-                            <goal>add-reachability-metadata</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                    <execution>
-                        <id>test-native</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
+<!--                <executions>-->
 <!--                    <execution>-->
-<!--&lt;!&ndash;                        <id>add-reachability-metadata</id>&ndash;&gt;-->
+<!--                        <id>process-aot</id>-->
 <!--                        <goals>-->
-<!--                            <goal>add-reachability-metadata</goal>-->
-<!--                            <goal>compile</goal>-->
+<!--                            <goal>process-aot</goal>-->
 <!--                        </goals>-->
 <!--                    </execution>-->
-                </executions>
+<!--                </executions>-->
             </plugin>
+
 <!--            <plugin>-->
 <!--                <groupId>org.codehaus.mojo</groupId>-->
 <!--                <artifactId>exec-maven-plugin</artifactId>-->
@@ -540,45 +483,70 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <configuration>
+                            <mainClass>${mainClass}</mainClass>
+                            <jvmArgs>
+                                <arg>-Xmx8g</arg>
+                                <arg>-Xms8g</arg>
+                            </jvmArgs>
+                            <agent>
+                                <enabled>true</enabled>
+                                <!--                        <modes>-->
+                                <!--                            <conditional>-->
+                                <!--                                <userCodeFilterPath>${user.dir}/src/main/resources/META-INF/native-image/user-code-filter.json-->
+                                <!--                                </userCodeFilterPath>-->
+                                <!--                                <extraFilterPath>${user.dir}/src/main/resources/META-INF/native-image/extra-filter.json-->
+                                <!--                                </extraFilterPath>-->
+                                <!--                                <parallel>true</parallel>-->
+                                <!--                            </conditional>-->
+                                <!--                        </modes>-->
+                            </agent>
+                            <!--                    <arguments>-->
+                            <!--                        <argument>&#45;&#45;enable-preview</argument>-->
+                            <!--                        <argument>&#45;&#45;reflective-config-file=reflect-config.json</argument>-->
+                            <!--                    </arguments>-->
                             <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                             <metadataRepository>
                                 <enabled>true</enabled>
                             </metadataRepository>
-                            <requiredVersion>22.3</requiredVersion>
-                            <extensions>true</extensions>-->
+                            <requiredVersion>23.1</requiredVersion>
                             <!--移除对yaml的支持-->
-                            <removeYamlSupport>true</removeYamlSupport>
-                            <!--移除对jmx的支持-->
-                            <removeJmxSupport>true</removeJmxSupport>
+                            <!--                    <removeYamlSupport>true</removeYamlSupport>-->
+                            <!--                    &lt;!&ndash;移除对jmx的支持&ndash;&gt;-->
+                            <!--                    <removeJmxSupport>true</removeJmxSupport>-->
                             <buildArgs>
-                                -H:+AllowVMInspection
-                                -H:+ReportUnsupportedElementsAtRuntime
-                                --initialize-at-build-time=java.beans.Introspector
-                                --verbose
+                                --enable-monitoring
+                                --initialize-at-build-time=apijson.orm.AbstractSQLConfig
+                                <!--                        &#45;&#45;verbose-->
+                                --no-fallback
+                                <!--                        &#45;&#45;enable-url-protocols=http,https-->
                             </buildArgs>
+                            <verbose>true</verbose>
                         </configuration>
                         <executions>
                             <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                    <goal>add-reachability-metadata</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                            <execution>
                                 <id>test-native</id>
-                                <phase>test</phase>
                                 <goals>
                                     <goal>test</goal>
                                 </goals>
+                                <phase>test</phase>
                             </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>add-reachability-metadata</id>
-                                <goals>
-                                    <goal>add-reachability-metadata</goal>
-                                </goals>
-                            </execution>
+                            <!--                    <execution>-->
+                            <!--&lt;!&ndash;                        <id>add-reachability-metadata</id>&ndash;&gt;-->
+                            <!--                        <goals>-->
+                            <!--                            <goal>add-reachability-metadata</goal>-->
+                            <!--                            <goal>compile</goal>-->
+                            <!--                        </goals>-->
+                            <!--                    </execution>-->
                         </executions>
                     </plugin>
                 </plugins>

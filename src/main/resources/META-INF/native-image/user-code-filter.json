@@ -1,6 +1,6 @@
 {
   "rules": [
     {"excludeClasses": "**"},
-    {"includeClasses": "com.baomidou.dynamic.datasource.**"}
+    {"includeClasses": "apijson.orm.AbstractSQLConfig"}
   ]
 }

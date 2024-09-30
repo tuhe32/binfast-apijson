@@ -19,6 +19,14 @@
     "allPublicMethods" : true
   },
   {
+    "name": "apijson.orm.AbstractSQLConfig",
+    "allPublicMethods": true,
+    "allDeclaredFields":true,
+    "allDeclaredClasses":true,
+    "queryAllDeclaredMethods":true,
+    "queryAllDeclaredConstructors":true
+  },
+  {
     "name" : "com.alibaba.fastjson.JSONObject"
   }
 ]

@@ -11,6 +11,14 @@
     "name": "apijson.NotNull"
   },
   {
+    "name": "apijson.orm.AbstractSQLConfig",
+    "allPublicMethods": true,
+    "allDeclaredFields":true,
+    "allDeclaredClasses":true,
+    "queryAllDeclaredMethods":true,
+    "queryAllDeclaredConstructors":true
+  },
+  {
     "name":"[I"
   },
   {
