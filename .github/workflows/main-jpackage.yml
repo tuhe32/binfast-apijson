@@ -39,7 +39,7 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
     - name: Jpackage
-      run: jpackage --input . --name binfast-apijson --main-jar target/binfast-apijson-0.0.2-SNAPSHOT.jar --dest ./target
+      run: jpackage --type exe --input . --name binfast-apijson --main-jar target/binfast-apijson-0.0.2-SNAPSHOT.jar --dest ./target --win-menu --win-shortcut
     # 压缩文件
     - name: Archive zip
       uses: thedoctor0/zip-release@master
