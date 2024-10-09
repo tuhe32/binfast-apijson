@@ -1,4 +1,4 @@
-name: jpackage windows release
+name: jpackage macos release
 
 on:
   workflow_dispatch: 
@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         # 暂时跳过 windows-latest
-        os: [ windows-latest]
+        os: [ macos-latest]
     name: build - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -39,7 +39,7 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
     - name: Jpackage
-      run: jpackage --type exe --input . --name binfast-apijson --main-jar target/binfast-apijson-0.0.2-SNAPSHOT.jar --dest ./target --win-menu --win-shortcut --icon ./target/classes/marshall.icns
+      run: jpackage --type dmg --input ./target --name binfast-apijson --main-jar ./binfast-apijson-0.0.2-SNAPSHOT.jar --dest ./target --icon ./target/classes/marshall.icns
     # 压缩文件
     - name: Archive zip
       uses: thedoctor0/zip-release@master
@@ -54,11 +54,11 @@ jobs:
       with:
         name: binfast-apijson-${{ matrix.os }}.zip
         path: binfast-apijson-${{ matrix.os }}.zip
-    # GitHub 上创建 release
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: binfast-apijson-${{ matrix.os }}.zip
-        prerelease: true
-        token: ${{ secrets.GH_TOKEN }}
+#    # GitHub 上创建 release
+#    - name: Release
+#      uses: softprops/action-gh-release@v1
+#      if: startsWith(github.ref, 'refs/tags/')
+#      with:
+#        files: binfast-apijson-${{ matrix.os }}.zip
+#        prerelease: true
+#        token: ${{ secrets.GH_TOKEN }}
